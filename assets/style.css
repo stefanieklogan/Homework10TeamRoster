@@ -1,7 +1,5 @@
-.container {
+body {
     background-color: burlywood;
-    padding: 15px;
-    width: 100%;
 }
 
 .leader, .eng, .intern {

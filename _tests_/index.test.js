@@ -1,0 +1,1 @@
+const Roster = require('./assets/index');
