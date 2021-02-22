@@ -5,16 +5,16 @@ const Intern = require('./library/intern');
 const inquirer = require('inquirer');
 const path = require("path");
 const fs = require("fs");
-// const render = require("./lib/htmlRender");
+// const render = require("./library/htmlRender");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 //hello
-const helloMessage = "Greetings, build your team by answering the questions below. Your finished file will be stored in the output folder."
+const helloMessage = "Greetings! Build your team by answering the questions below. \nYour finished file will be stored in the output folder."
 console.log(helloMessage);
 
-function createMgr() {
+function promptMgr() {
     return inquirer.prompt([
         {
             type: 'input',
@@ -34,7 +34,7 @@ function createMgr() {
         {
             type: 'input',
             name: 'office',
-            message: "Manager office suite #:",
+            message: "Manager suite #:",
         },
         {
             type: 'list',
@@ -45,7 +45,7 @@ function createMgr() {
     ])
 }
 
-function createEng() {
+function promptEng() {
     return inquirer.prompt([
         {
             type: 'input',
@@ -76,7 +76,7 @@ function createEng() {
     ])
 }
 
-function createIntern() {
+function promptIntern() {
     return inquirer.prompt([
         {
             type: 'input',
@@ -105,40 +105,40 @@ function createIntern() {
             choices: ['Manager', 'Engineer', 'Intern', 'Exit']
         },
     ])
-    addMgr();
 }
 
+
+//Empty arr to hold team member info from prompt responses
 const team = [];
 
 function addMgr() {
-    promptManager().then(function(response) {
+        promptMgr().then(function(response) {
         const manager = new Manager(response.name, response.id, response.email, response.office)
         if (response.next === "Engineer") {
             team.push(manager);
             console.log(team);
-            createEng();
+            promptEng();
         }
         else if (response.next === "Intern") {
             team.push(manager);
             console.log(team);
-            createIntern();
+            promptIntern();
         }
         else if (response.next === "Manager") {
             team.push(manager);
             console.log(team);
-            createMgr();
+            addMgr();
+            // console.log(team);
         }
         else {
             team.push(manager);
             console.log(team);
-
-            fs.writeFile("./output/team.html", render(team), function(err) {
-                if (err) throw err;
-                console.log("200: Generating file.")
-            }); 
-            return;
         }
-    })
-}
+            // fs.writeFile("./output/team.html", render(team), function(err) {
+            //     if (err) throw err;
+            //     console.log("200: Generating file.")
+            // }); 
+            // return;
+        })}
 
-createMgr();
+addMgr();
