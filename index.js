@@ -117,18 +117,17 @@ function addMgr() {
         if (response.next === "Engineer") {
             team.push(manager);
             console.log(team);
-            promptEng();
+            addEng();
         }
         else if (response.next === "Intern") {
             team.push(manager);
             console.log(team);
-            promptIntern();
+            addIntern();
         }
         else if (response.next === "Manager") {
             team.push(manager);
             console.log(team);
             addMgr();
-            // console.log(team);
         }
         else {
             team.push(manager);
@@ -141,4 +140,62 @@ function addMgr() {
             // return;
         })}
 
+function addEng() {
+        promptEng().then(function(response) {
+        const eng = new Engineer(response.name, response.id, response.email, response.github)
+        if (response.next === "Engineer") {
+                team.push(eng);
+                console.log(team);
+                addEng();
+        }
+        else if (response.next === "Intern") {
+                team.push(eng);
+                console.log(team);
+                addIntern();
+        }
+        else if (response.next === "Manager") {
+                team.push(eng);
+                console.log(team);
+                addMgr();
+        }
+        else {
+                team.push(eng);
+                console.log(team);
+        }
+                // fs.writeFile("./output/team.html", render(team), function(err) {
+                //     if (err) throw err;
+                //     console.log("200: Generating file.")
+                // }); 
+                // return;
+        })}
+
+function addIntern() {
+        promptIntern().then(function(response) {
+        const intern = new Intern(response.name, response.id, response.email, response.school)
+        if (response.next === "Engineer") {
+                    team.push(intern);
+                    console.log(team);
+                    addEng();
+        }
+        else if (response.next === "Intern") {
+                    team.push(intern);
+                    console.log(team);
+                    addIntern();
+        }
+        else if (response.next === "Manager") {
+                    team.push(intern);
+                    console.log(team);
+                    addMgr();
+        }
+        else {
+                    team.push(intern);
+                    console.log(team);
+                    console.log("Your file will be ready in the output folder momentarily.")
+        }
+                    // fs.writeFile("./output/team.html", render(team), function(err) {
+                    //     if (err) throw err;
+                    //     console.log("200: Generating file.")
+                    // }); 
+                    // return;
+        })}
 addMgr();
