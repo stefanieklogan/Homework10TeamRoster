@@ -5,7 +5,7 @@ const Intern = require('./library/intern');
 const inquirer = require('inquirer');
 const path = require("path");
 const fs = require("fs");
-// const render = require("./library/htmlRender");
+
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -107,7 +107,6 @@ function promptIntern() {
     ])
 }
 
-
 //Empty arr to hold team member info from prompt responses
 const team = [];
 
@@ -132,12 +131,9 @@ function addMgr() {
         else {
             team.push(manager);
             console.log(team);
+            writeFile();
         }
-            // fs.writeFile("./output/team.html", render(team), function(err) {
-            //     if (err) throw err;
-            //     console.log("200: Generating file.")
-            // }); 
-            // return;
+            
         })}
 
 function addEng() {
@@ -162,11 +158,11 @@ function addEng() {
                 team.push(eng);
                 console.log(team);
         }
-                // fs.writeFile("./output/team.html", render(team), function(err) {
-                //     if (err) throw err;
-                //     console.log("200: Generating file.")
-                // }); 
-                // return;
+                fs.writeFile("./output/team.html", render(team), function(err) {
+                    if (err) throw err;
+                    console.log("200: Generating file.")
+                }); 
+                return;
         })}
 
 function addIntern() {
@@ -192,10 +188,16 @@ function addIntern() {
                     console.log(team);
                     console.log("Your file will be ready in the output folder momentarily.")
         }
-                    // fs.writeFile("./output/team.html", render(team), function(err) {
-                    //     if (err) throw err;
-                    //     console.log("200: Generating file.")
-                    // }); 
-                    // return;
+                    fs.writeFile("./output/team.html", render(team), function(err) {
+                        if (err) throw err;
+                        console.log("200: Generating file.")
+                    }); 
+                    return;
         })}
+
+function writeFile() {
+    fs.writeFile("./output/team.html", render(team), (err) =>
+    err ? console.log(err) : console.log('200; Team roster is ready in output folder.')
+    );
+}
 addMgr();
