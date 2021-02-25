@@ -6,7 +6,6 @@ const inquirer = require('inquirer');
 const path = require("path");
 const fs = require("fs");
 
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -110,8 +109,60 @@ function promptIntern() {
 //Empty arr to hold team member info from prompt responses
 const team = [];
 
+function addEng() {
+    promptEng().then(function (response) {
+        const eng = new Engineer(response.name, response.id, response.email, response.github)
+        if (response.next === "Engineer") {
+            team.push(eng);
+            console.log(team);
+            addEng();
+        }
+        else if (response.next === "Intern") {
+            team.push(eng);
+            console.log(team);
+            addIntern();
+        }
+        else if (response.next === "Manager") {
+            team.push(eng);
+            console.log(team);
+            addMgr();
+        }
+        else {
+            team.push(eng);
+            console.log(team);
+            createFile();
+        }
+    })
+}
+
+function addIntern() {
+    promptIntern().then(function (response) {
+        const intern = new Intern(response.name, response.id, response.email, response.school)
+        if (response.next === "Engineer") {
+            team.push(intern);
+            console.log(team);
+            addEng();
+        }
+        else if (response.next === "Intern") {
+            team.push(intern);
+            console.log(team);
+            addIntern();
+        }
+        else if (response.next === "Manager") {
+            team.push(intern);
+            console.log(team);
+            addMgr();
+        }
+        else {
+            team.push(intern);
+            console.log(team);
+            createFile();
+        }
+    })
+}
+
 function addMgr() {
-        promptMgr().then(function(response) {
+    promptMgr().then(function (response) {
         const manager = new Manager(response.name, response.id, response.email, response.office)
         if (response.next === "Engineer") {
             team.push(manager);
@@ -131,73 +182,15 @@ function addMgr() {
         else {
             team.push(manager);
             console.log(team);
-            writeFile();
+            createFile();
         }
-            
-        })}
 
-function addEng() {
-        promptEng().then(function(response) {
-        const eng = new Engineer(response.name, response.id, response.email, response.github)
-        if (response.next === "Engineer") {
-                team.push(eng);
-                console.log(team);
-                addEng();
-        }
-        else if (response.next === "Intern") {
-                team.push(eng);
-                console.log(team);
-                addIntern();
-        }
-        else if (response.next === "Manager") {
-                team.push(eng);
-                console.log(team);
-                addMgr();
-        }
-        else {
-                team.push(eng);
-                console.log(team);
-        }
-                fs.writeFile("./output/team.html", render(team), function(err) {
-                    if (err) throw err;
-                    console.log("200: Generating file.")
-                }); 
-                return;
-        })}
-
-function addIntern() {
-        promptIntern().then(function(response) {
-        const intern = new Intern(response.name, response.id, response.email, response.school)
-        if (response.next === "Engineer") {
-                    team.push(intern);
-                    console.log(team);
-                    addEng();
-        }
-        else if (response.next === "Intern") {
-                    team.push(intern);
-                    console.log(team);
-                    addIntern();
-        }
-        else if (response.next === "Manager") {
-                    team.push(intern);
-                    console.log(team);
-                    addMgr();
-        }
-        else {
-                    team.push(intern);
-                    console.log(team);
-                    console.log("Your file will be ready in the output folder momentarily.")
-        }
-                    fs.writeFile("./output/team.html", render(team), function(err) {
-                        if (err) throw err;
-                        console.log("200: Generating file.")
-                    }); 
-                    return;
-        })}
-
-function writeFile() {
-    fs.writeFile("./output/team.html", render(team), (err) =>
-    err ? console.log(err) : console.log('200; Team roster is ready in output folder.')
-    );
+    })
 }
+function createFile() {
+    console.log("ready to write file");
+    // fs.writeFile('team.html', FUNCTION, (err) =>
+    // err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
+};
+
 addMgr();
