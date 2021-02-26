@@ -110,10 +110,11 @@ function promptIntern() {
 const rosterArr = [];
 
 //Remove spaces and commas between rosterArr obj
-const rosterArrJoin = rosterArr.join('');
+// const rosterArrJoin = rosterArr.join('');
 // const rosterArrJoin = rosterArr.map(e => e.name).join('');
 
 function roster(data) {
+    const rosterArrJoin = rosterArr.join('');
     return `<!DOCTYPE html>
     <html lang="en">
     
@@ -149,7 +150,7 @@ function roster(data) {
         </div>
     
         <!-- ROSTER STARTS HERE -->
-        <div class="row">${rosterArr}
+        <div class="row">${rosterArrJoin}
         </div>
 
         <script type="text/javascript" src="js/materialize.min.js"></script>
