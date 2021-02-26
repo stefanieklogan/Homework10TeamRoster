@@ -109,11 +109,8 @@ function promptIntern() {
 //Empty arr to html card for each team member
 const rosterArr = [];
 
-//Remove spaces and commas between rosterArr obj
-// const rosterArrJoin = rosterArr.join('');
-// const rosterArrJoin = rosterArr.map(e => e.name).join('');
-
 function roster(data) {
+    //Remove spaces and commas between rosterArr obj
     const rosterArrJoin = rosterArr.join('');
     return `<!DOCTYPE html>
     <html lang="en">
@@ -164,7 +161,6 @@ function addEng() {
         const eng = new Engineer(response.name, response.id, response.email, response.github)
         if (response.next === "Engineer") {
             rosterArr.push(createEngCard(eng));
-            console.log(rosterArr);
             addEng();
         }
         else if (response.next === "Intern") {
@@ -177,7 +173,6 @@ function addEng() {
         }
         else {
             rosterArr.push(createEngCard(eng));
-            console.log('\nroster arr: ' + rosterArr);
             createFile();
         }
     })
@@ -200,7 +195,6 @@ function addIntern() {
         }
         else {
             rosterArr.push(createInternCard(intern));
-            console.log('\nroster arr: ' + rosterArr);
             createFile();
         }
     })
@@ -223,8 +217,6 @@ function addMgr() {
         }
         else {
             rosterArr.push(createMgrCard(manager));
-            console.log('\nroster arr: ' + rosterArr);
-            console.log('\nJOIN ROSTER: ' + rosterArrJoin);
             createFile();
         }
 
