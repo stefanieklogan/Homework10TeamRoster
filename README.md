@@ -13,7 +13,7 @@
 <a name="application"></a>
 ## Link to application
 
-* Walk-thru video: xxxxxxxxxxxxxxxxxxx
+* Walk-thru video: https://drive.google.com/file/d/1nTZsD5fByJ19q5dkZuhmjVvlYQnKNH0y/view
 
 ![Homepage image1](https://github.com/stefanieklogan/Homework10TeamRoster/blob/main/output/RosebudRoster.JPG)
 
