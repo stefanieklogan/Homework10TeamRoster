@@ -113,50 +113,50 @@ const rosterArr = [];
 const rosterArrJoin = rosterArr.join('');
 // const rosterArrJoin = rosterArr.map(e => e.name).join('');
 
-// function roster(data) {
-//     return `<!DOCTYPE html>
-//     <html lang="en">
+function roster(data) {
+    return `<!DOCTYPE html>
+    <html lang="en">
     
-//     <head>
-//         <meta charset="UTF-8">
-//         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-//         <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-//         <script src="https://kit.fontawesome.com/9834d6982e.js" crossorigin="anonymous"></script>
-//         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-//         <link rel="stylesheet" href="./style.css" />
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+        <script src="https://kit.fontawesome.com/9834d6982e.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link rel="stylesheet" href="./style.css" />
     
-//         <title>Team Roster</title>
+        <title>Team Roster</title>
     
-//     </head>
+    </head>
     
-//     <body>
-//         <div class="container center">
-//             <h1>Welcome, team!</h1>
-//             <div class="row">
-//                 <div class="col s4 m4 center">
-//                     <i class="fas fa-bolt fa-2x leader"></i><span>Leader</span>
-//                 </div>
+    <body>
+        <div class="container center">
+            <h1>Welcome, team!</h1>
+            <div class="row">
+                <div class="col s4 m4 center">
+                    <i class="fas fa-bolt fa-2x leader"></i><span>Leader</span>
+                </div>
     
-//                 <div class="col s4 m4 center">
-//                     <i class="fas fa-cog fa-2x eng"></i><span>Engineer</span>
-//                 </div>
+                <div class="col s4 m4 center">
+                    <i class="fas fa-cog fa-2x eng"></i><span>Engineer</span>
+                </div>
     
-//                 <div class="col s4 m4 center">
-//                     <i class="fas fa-graduation-cap fa-2x intern"></i><span>Intern</span>
-//                 </div>
-//             </div>
-//         </div>
+                <div class="col s4 m4 center">
+                    <i class="fas fa-graduation-cap fa-2x intern"></i><span>Intern</span>
+                </div>
+            </div>
+        </div>
     
-//         <!-- ROSTER STARTS HERE -->
-//         <div class="row">${rosterArrJoin}
-//         </div>
+        <!-- ROSTER STARTS HERE -->
+        <div class="row">${rosterArr}
+        </div>
 
-//         <script type="text/javascript" src="js/materialize.min.js"></script>
-//     </body>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+    </body>
     
-//     </html>`
-// }
+    </html>`
+}
 
 function addEng() {
     promptEng().then(function (response) {
@@ -230,10 +230,9 @@ function addMgr() {
     })
 }
 function createFile() {
-    console.log(rosterArrJoin);
-    // fs.writeFile('./output/team.html', roster(rosterArr), (err) =>
-    //     err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
-};
+    fs.writeFile('./output/team.html', roster(rosterArr), (err) =>
+        err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
+    )};
 
 
 addMgr();
