@@ -15,9 +15,7 @@
 
 * Walk-thru video: xxxxxxxxxxxxxxxxxxx
 
-![Homepage image1](xxxxxxxxxxxxxxxx)
-
-![Homepage image2](xxxxxxxxxxxxxxxxxxx)
+![Homepage image1](https://github.com/stefanieklogan/Homework10TeamRoster/blob/main/output/RosebudRoster.JPG)
 
 <a name="overview"></a>
 ## Project overview
