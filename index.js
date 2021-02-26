@@ -1,4 +1,3 @@
-// const Employee = require('./library/employee');
 const Manager = require('./library/manager');
 const Engineer = require('./library/engineer');
 const Intern = require('./library/intern');
@@ -8,11 +7,7 @@ const createEngCard = require('./templates/engTemplate');
 const createInternCard = require('./templates/internTemplate');
 
 const inquirer = require('inquirer');
-// const path = require("path");
 const fs = require("fs");
-
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 //hello
 const helloMessage = "Greetings! Build your team by answering the questions below. \nYour finished file will be stored in the output folder."
@@ -111,84 +106,75 @@ function promptIntern() {
     ])
 }
 
-//Empty arr to hold prompt responses by team members
-// const teamArr = [];
-
 //Empty arr to html card for each team member
 const rosterArr = [];
 
-//Remove spaces and commas between arr obj
+//Remove spaces and commas between rosterArr obj
 const rosterArrJoin = rosterArr.join('');
+// const rosterArrJoin = rosterArr.map(e => e.name).join('');
 
-function roster(rosterArrJoin) {
-    return `<!DOCTYPE html>
-    <html lang="en">
+// function roster(data) {
+//     return `<!DOCTYPE html>
+//     <html lang="en">
     
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-        <script src="https://kit.fontawesome.com/9834d6982e.js" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <link rel="stylesheet" href="./assets/style.css" />
+//     <head>
+//         <meta charset="UTF-8">
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+//         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+//         <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+//         <script src="https://kit.fontawesome.com/9834d6982e.js" crossorigin="anonymous"></script>
+//         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+//         <link rel="stylesheet" href="./style.css" />
     
-        <title>Team Roster</title>
+//         <title>Team Roster</title>
     
-    </head>
+//     </head>
     
-    <body>
-        <div class="container center">
-            <h1>Welcome, team!</h1>
-            <div class="row">
-                <div class="col s4 m4 center">
-                    <i class="fas fa-bolt fa-2x leader"></i><span>Leader</span>
-                </div>
+//     <body>
+//         <div class="container center">
+//             <h1>Welcome, team!</h1>
+//             <div class="row">
+//                 <div class="col s4 m4 center">
+//                     <i class="fas fa-bolt fa-2x leader"></i><span>Leader</span>
+//                 </div>
     
-                <div class="col s4 m4 center">
-                    <i class="fas fa-cog fa-2x eng"></i><span>Engineer</span>
-                </div>
+//                 <div class="col s4 m4 center">
+//                     <i class="fas fa-cog fa-2x eng"></i><span>Engineer</span>
+//                 </div>
     
-                <div class="col s4 m4 center">
-                    <i class="fas fa-graduation-cap fa-2x intern"></i><span>Intern</span>
-                </div>
-            </div>
-        </div>
+//                 <div class="col s4 m4 center">
+//                     <i class="fas fa-graduation-cap fa-2x intern"></i><span>Intern</span>
+//                 </div>
+//             </div>
+//         </div>
     
-        <!-- ROSTER STARTS HERE -->
-        <div class="row mgr">${rosterArrJoin}</div>
+//         <!-- ROSTER STARTS HERE -->
+//         <div class="row">${rosterArrJoin}
+//         </div>
 
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-    </body>
+//         <script type="text/javascript" src="js/materialize.min.js"></script>
+//     </body>
     
-    </html>`
-}
+//     </html>`
+// }
 
 function addEng() {
     promptEng().then(function (response) {
         const eng = new Engineer(response.name, response.id, response.email, response.github)
         if (response.next === "Engineer") {
-            // teamArr.push(eng);
-            // console.log(teamArr);
             rosterArr.push(createEngCard(eng));
             console.log(rosterArr);
             addEng();
         }
         else if (response.next === "Intern") {
-            // teamArr.push(eng);
-            // console.log(teamArr);
             rosterArr.push(createEngCard(eng));
             addIntern();
         }
         else if (response.next === "Manager") {
-            // teamArr.push(eng);
-            // console.log(teamArr);
             rosterArr.push(createEngCard(eng));
             addMgr();
         }
         else {
-            // teamArr.push(eng);
-            // console.log(teamArr);
             rosterArr.push(createEngCard(eng));
             console.log('\nroster arr: ' + rosterArr);
             createFile();
@@ -200,26 +186,18 @@ function addIntern() {
     promptIntern().then(function (response) {
         const intern = new Intern(response.name, response.id, response.email, response.school)
         if (response.next === "Engineer") {
-            // teamArr.push(intern);
-            // console.log(teamArr);
             rosterArr.push(createInternCard(intern));
             addEng();
         }
         else if (response.next === "Intern") {
-            // teamArr.push(intern);
-            // console.log(teamArr);
             rosterArr.push(createInternCard(intern));
             addIntern();
         }
         else if (response.next === "Manager") {
-            // teamArr.push(intern);
-            // console.log(teamArr);
             rosterArr.push(createInternCard(intern));
             addMgr();
         }
         else {
-            // teamArr.push(intern);
-            // console.log(teamArr);
             rosterArr.push(createInternCard(intern));
             console.log('\nroster arr: ' + rosterArr);
             createFile();
@@ -231,26 +209,18 @@ function addMgr() {
     promptMgr().then(function (response) {
         const manager = new Manager(response.name, response.id, response.email, response.office)
         if (response.next === "Engineer") {
-           // teamArr.push(manager);
-            // console.log(teamArr);
             rosterArr.push(createMgrCard(manager));
             addEng();
         }
         else if (response.next === "Intern") {
-            // teamArr.push(manager);
-            // console.log(teamArr);
             rosterArr.push(createMgrCard(manager));
             addIntern();
         }
         else if (response.next === "Manager") {
-            // teamArr.push(Manager);
             rosterArr.push(createMgrCard(manager));
-            // console.log('\nroster arr: ' + rosterArr);
             addMgr();
         }
         else {
-            // teamArr.push(manager);
-            // console.log(teamArr);
             rosterArr.push(createMgrCard(manager));
             console.log('\nroster arr: ' + rosterArr);
             console.log('\nJOIN ROSTER: ' + rosterArrJoin);
@@ -260,9 +230,9 @@ function addMgr() {
     })
 }
 function createFile() {
-    fs.writeFile('team.html', roster, (err) =>
-        err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
-    )
+    console.log(rosterArrJoin);
+    // fs.writeFile('./output/team.html', roster(rosterArr), (err) =>
+    //     err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
 };
 
 
