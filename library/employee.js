@@ -8,9 +8,9 @@ class Employee {
         console.log(`Name: ${this.name} :: Email: ${this.email} :: ID: ${this.id}`);
     }
     
-    get Name() {return this.name};
-    get Id() {return this.id};
-    get Email() {return this.email};
+    getName() {return this.name};
+    getId() {return this.id};
+    getEmail() {return this.email};
 }
 
 module.exports = Employee

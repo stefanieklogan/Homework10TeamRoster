@@ -9,10 +9,11 @@ let Intern = class extends Employee {
         console.log(`Name: ${this.name} :: Email: ${this.email} :: ID: ${this.id}:: School: ${this.school}`);
     }
     
-    get Name() {return this.name};
-    get Id() {return this.id};
-    get Email() {return this.email};
-    get School() {return this.school};
+    getName() {return this.name};
+    getId() {return this.id};
+    getEmail() {return this.email};
+    getSchool() {return this.school};
+    getRole() {return "Intern"};
 }
 
 module.exports = Intern

@@ -9,10 +9,11 @@ let Engineer = class extends Employee {
         console.log(`Name: ${this.name} :: Email: ${this.email} :: ID: ${this.id}:: Github: ${this.github}`);
     }
     
-    get Name() {return this.name};
-    get Id() {return this.id};
-    get Email() {return this.email};
-    get Github() {return this.github};
+    getName() {return this.name};
+    getId() {return this.id};
+    getEmail() {return this.email};
+    getGithub() {return this.github};
+    getRole() {return "Engineer"};
 }
 
 module.exports = Engineer
