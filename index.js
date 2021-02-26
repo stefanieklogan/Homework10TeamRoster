@@ -1,4 +1,4 @@
-const Employee = require('./library/employee');
+// const Employee = require('./library/employee');
 const Manager = require('./library/manager');
 const Engineer = require('./library/engineer');
 const Intern = require('./library/intern');
@@ -8,7 +8,7 @@ const createEngCard = require('./templates/engTemplate');
 const createInternCard = require('./templates/internTemplate');
 
 const inquirer = require('inquirer');
-const path = require("path");
+// const path = require("path");
 const fs = require("fs");
 
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
@@ -112,113 +112,15 @@ function promptIntern() {
 }
 
 //Empty arr to hold prompt responses by team members
-const teamArr = [];
+// const teamArr = [];
 
-//Empty arr to hold team members by html cards
+//Empty arr to html card for each team member
 const rosterArr = [];
 
-function addEng() {
-    promptEng().then(function (response) {
-        const eng = new Engineer(response.name, response.id, response.email, response.github)
-        if (response.next === "Engineer") {
-            teamArr.push(eng);
-            console.log(teamArr);
-            addEng();
-        }
-        else if (response.next === "Intern") {
-            teamArr.push(eng);
-            console.log(teamArr);
-            addIntern();
-        }
-        else if (response.next === "Manager") {
-            teamArr.push(eng);
-            console.log(teamArr);
-            addMgr();
-        }
-        else {
-            teamArr.push(eng);
-            console.log(teamArr);
-            createFile();
-        }
-    })
-}
+//Remove spaces and commas between arr obj
+const rosterArrJoin = rosterArr.join('');
 
-function addIntern() {
-    promptIntern().then(function (response) {
-        const intern = new Intern(response.name, response.id, response.email, response.school)
-        if (response.next === "Engineer") {
-            teamArr.push(intern);
-            console.log(teamArr);
-            addEng();
-        }
-        else if (response.next === "Intern") {
-            teamArr.push(intern);
-            console.log(teamArr);
-            addIntern();
-        }
-        else if (response.next === "Manager") {
-            teamArr.push(intern);
-            console.log(teamArr);
-            addMgr();
-        }
-        else {
-            teamArr.push(intern);
-            console.log(teamArr);
-            createFile();
-        }
-    })
-}
-
-function addMgr() {
-    promptMgr().then(function (response) {
-        const manager = new Manager(response.name, response.id, response.email, response.office)
-        if (response.next === "Engineer") {
-            teamArr.push(manager);
-            console.log(teamArr);
-            addEng();
-        }
-        else if (response.next === "Intern") {
-            teamArr.push(manager);
-            console.log(teamArr);
-            addIntern();
-        }
-        else if (response.next === "Manager") {
-            // teamArr.push(Manager);
-            rosterArr.push(createMgrCard(manager));
-            console.log('\nroster arr: ' + rosterArr);
-            addMgr();
-        }
-        else {
-            teamArr.push(manager);
-            console.log(teamArr);
-            createFile();
-        }
-
-    })
-}
-function createFile() {
-    console.log("200; ready to write file");
-    // fs.writeFile('team.html', teamMapArr, (err) =>
-    //     err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
-    // )
-};
-
-// const teamMapArr = teamArr.map(employee => {
-
-//     const teamMember = { ...employee };
-//     if (teamMember.office) {
-//         rosterArr.push(createMgrCard(teamMember));
-//     }
-//     console.log(rosterArr);
-//     if (teamMember.github) {
-//         rosterArr.push(createEngCard(teamMember));
-//     }
-//     if (teamMember.school) {
-//         rosterArr.push(createInternCard(teamMember));
-//     }
-// });
-
-module.exports = rosterArr => {
+function roster(rosterArrJoin) {
     return `<!DOCTYPE html>
     <html lang="en">
     
@@ -254,7 +156,7 @@ module.exports = rosterArr => {
         </div>
     
         <!-- ROSTER STARTS HERE -->
-        <div class="row mgr">${rosterArr.join("")}</div>
+        <div class="row mgr">${rosterArrJoin}</div>
 
         <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
@@ -262,6 +164,106 @@ module.exports = rosterArr => {
     </html>`
 }
 
-addMgr();
+function addEng() {
+    promptEng().then(function (response) {
+        const eng = new Engineer(response.name, response.id, response.email, response.github)
+        if (response.next === "Engineer") {
+            // teamArr.push(eng);
+            // console.log(teamArr);
+            rosterArr.push(createEngCard(eng));
+            console.log(rosterArr);
+            addEng();
+        }
+        else if (response.next === "Intern") {
+            // teamArr.push(eng);
+            // console.log(teamArr);
+            rosterArr.push(createEngCard(eng));
+            addIntern();
+        }
+        else if (response.next === "Manager") {
+            // teamArr.push(eng);
+            // console.log(teamArr);
+            rosterArr.push(createEngCard(eng));
+            addMgr();
+        }
+        else {
+            // teamArr.push(eng);
+            // console.log(teamArr);
+            rosterArr.push(createEngCard(eng));
+            console.log('\nroster arr: ' + rosterArr);
+            createFile();
+        }
+    })
+}
 
-// module.exports = teamArrExport()
+function addIntern() {
+    promptIntern().then(function (response) {
+        const intern = new Intern(response.name, response.id, response.email, response.school)
+        if (response.next === "Engineer") {
+            // teamArr.push(intern);
+            // console.log(teamArr);
+            rosterArr.push(createInternCard(intern));
+            addEng();
+        }
+        else if (response.next === "Intern") {
+            // teamArr.push(intern);
+            // console.log(teamArr);
+            rosterArr.push(createInternCard(intern));
+            addIntern();
+        }
+        else if (response.next === "Manager") {
+            // teamArr.push(intern);
+            // console.log(teamArr);
+            rosterArr.push(createInternCard(intern));
+            addMgr();
+        }
+        else {
+            // teamArr.push(intern);
+            // console.log(teamArr);
+            rosterArr.push(createInternCard(intern));
+            console.log('\nroster arr: ' + rosterArr);
+            createFile();
+        }
+    })
+}
+
+function addMgr() {
+    promptMgr().then(function (response) {
+        const manager = new Manager(response.name, response.id, response.email, response.office)
+        if (response.next === "Engineer") {
+           // teamArr.push(manager);
+            // console.log(teamArr);
+            rosterArr.push(createMgrCard(manager));
+            addEng();
+        }
+        else if (response.next === "Intern") {
+            // teamArr.push(manager);
+            // console.log(teamArr);
+            rosterArr.push(createMgrCard(manager));
+            addIntern();
+        }
+        else if (response.next === "Manager") {
+            // teamArr.push(Manager);
+            rosterArr.push(createMgrCard(manager));
+            // console.log('\nroster arr: ' + rosterArr);
+            addMgr();
+        }
+        else {
+            // teamArr.push(manager);
+            // console.log(teamArr);
+            rosterArr.push(createMgrCard(manager));
+            console.log('\nroster arr: ' + rosterArr);
+            console.log('\nJOIN ROSTER: ' + rosterArrJoin);
+            createFile();
+        }
+
+    })
+}
+function createFile() {
+    fs.writeFile('team.html', roster, (err) =>
+        err ? console.log(err) : console.log('200; your file is ready ---> ./output.')
+    )
+};
+
+
+addMgr();
